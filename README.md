@@ -6,27 +6,14 @@ This repository contains two cycle-accurate RISC-V processor simulators implemen
 - **Five-Stage Pipelined Processor**: Classic IF/ID/EX/MEM/WB pipeline with hazard handling
 
 Each simulator executes a program encoded in instruction and data memory files, and outputs:
-- Register state per cycle (`RFOutput.txt`)
+- Register state per cycle (`RFResult.txt`)
 - Full microarchitectural state per cycle (`StateResult.txt`)
 - Final data memory contents (`DmemResult.txt`)
 
----
 
 ## Build and Run Instructions
 
-### Single-Stage Processor
-```bash
-g++ -std=c++17 -O2 single_stage.cpp -o rv32i_single
-./rv32i_single imem.txt dmem.txt
-```
-
-### Five-Stage Pipelined Processor
-```bash
-g++ -std=c++17 -O2 pipeline_stage.cpp -o rv32i_pipeline
-./rv32i_pipeline imem.txt dmem.txt
-```
-
-> Replace the `.cpp` file names with yours if different.
+This repository includes a run.sh script that helps you compile and run either the single-stage or five-stage RISC-V processor simulator.
 
 
 ## Input Files
@@ -35,7 +22,7 @@ g++ -std=c++17 -O2 pipeline_stage.cpp -o rv32i_pipeline
 
 
 ## Output Files
-- `RFOutput.txt`: Register file contents per cycle
+- `RFResult.txt`: Register file contents per cycle
 - `StateResult.txt`: Pipeline or processor state per cycle
 - `DmemResult.txt`: Final data memory contents after execution
 
@@ -62,6 +49,7 @@ g++ -std=c++17 -O2 pipeline_stage.cpp -o rv32i_pipeline
 | MEM   | Load/store from data memory |
 | WB    | Write results to destination registers |
 
+
 ### Pipeline Features
 - **NOP bit** in every stage register
 - **Forwarding** (EX→ID, MEM→ID) for RAW hazard resolution
@@ -71,9 +59,9 @@ g++ -std=c++17 -O2 pipeline_stage.cpp -o rv32i_pipeline
 
 
 ## Simulation Notes
-- Register x0 is **hardwired to 0**—no writes allowed
+- Register x0 is hardwired to 0 (no writes allowed)
 - Execution stops when a `HALT` instruction reaches the ID/RF stage
-- All memory is byte-addressable and **big-endian**
+- All memory is byte-addressable and big-endian
 
 
 ## Author
